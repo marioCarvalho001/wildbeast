@@ -17,7 +17,7 @@ a {
 }
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   border-radius: 5px;
 }
 /*GRID geral*/
@@ -28,6 +28,29 @@ img {
     " header header header"
     "sidenav content anuncios"
     "footer footer footer";
+}
+
+@media (max-width: 1200px) {
+  /*Posso copiar o grid template columns e retirar a ultima coluna de 300px. ou fazer o conteudo ocupar esse coluna*/
+  .estrutura {
+    grid-template-areas:
+      "header header header"
+      "sidenav content content"
+      "sidenac anuncios anuncios"
+      "footer footer footer";
+  }
+}
+
+@media (max-width: 760px) {
+  .estrutura {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "sidenav"
+      "content"
+      "anuncios"
+      "footer";
+  }
 }
 
 /*header*/
@@ -62,6 +85,21 @@ img {
 header li + li {
   margin-left: 30px;
 }
+@media (max-width: 760px) {
+  .header {
+    grid-template-columns: auto;
+  }
+  .logo {
+    margin-bottom: 20px;
+  }
+  .header nav a {
+    font-size: 1em;
+  }
+  .header li + li {
+    margin-left: 10px;
+  }
+}
+
 /*Sidenav*/
 .sidenav {
   grid-area: sidenav;
@@ -84,6 +122,44 @@ header li + li {
   background: #b07dfb;
 }
 
+@keyframes seta {
+  from {
+    right: 30px;
+  }
+  to {
+    right: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sidenav {
+    position: relative;
+    overflow-x: auto;
+  }
+  .sidenav ul {
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  .sidenav::after {
+    content: "→";
+    position: absolute;
+    top: 5px;
+    height: 30px;
+    color: rgba(0, 0, 0, 0.3);
+    animation: seta 0.4s ease-in 0s infinite alternate;
+  }
+  .sidenav ul li {
+    flex: 1 0 60px;
+  }
+  .sidenav {
+    padding: 0 30px;
+  }
+  .sidenav li a {
+    margin: 30px 30px 30px 0;
+  }
+}
+
 /*Content*/
 
 .content {
@@ -93,7 +169,13 @@ header li + li {
   padding: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid: gap 30px;
+  grid-gap: 30px;
+}
+
+@media (max-width: 600px) {
+  .content {
+    grid-template-columns: auto;
+  }
 }
 
 .col-wide {
@@ -164,6 +246,37 @@ p {
   top: 2px;
 }
 
+.destaque {
+  font-size: 0.875em;
+  color: #b07dfb;
+  max-width: 16em;
+}
+.citacao,
+.atributos {
+  align-self: start;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+  background: linear-gradient(135deg, #8844ee, #b07dfb);
+}
+.citacao p {
+  align-self: start;
+  font-size: 1.5em;
+  font-style: italic;
+  text-align: center;
+  color: white;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.atributos li {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.125em;
+  padding: 15px;
+}
+.atributos li + li {
+  border-top: 2px solid #b07dfb;
+}
 /*Anuncios*/
 .anuncios {
   grid-area: anuncios;
@@ -172,6 +285,7 @@ p {
   align-content: start;
   padding: 30px;
   grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 /*Footer*/
 .footer {
